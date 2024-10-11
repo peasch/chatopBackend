@@ -1,6 +1,5 @@
 package com.example.chatopbackend.model.Dtos;
 
-import jakarta.persistence.Column;
 import lombok.*;
 
 import java.io.Serializable;

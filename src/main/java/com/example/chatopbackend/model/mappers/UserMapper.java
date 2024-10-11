@@ -4,10 +4,13 @@ import com.example.chatopbackend.model.Dtos.UserDto;
 import com.example.chatopbackend.model.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
+
+@Component
+@Mapper(componentModel = SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
     @Mapping(target="name",source="name")
@@ -22,6 +25,6 @@ public interface UserMapper {
     @Mapping(target="password",source="password")
     @Mapping(target="created_at",source="created_at")
     @Mapping(target="updated_at",source="updated_at")
-    UserDto fromUsertoDto(User dto) ;
+    UserDto fromUserToDto(User dto) ;
 
 }
