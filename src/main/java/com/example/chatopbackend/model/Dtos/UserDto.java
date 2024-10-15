@@ -7,8 +7,7 @@ import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 public class UserDto  implements Serializable {
 
