@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EntityScan(basePackages = {"com.*"})
 @EnableJpaRepositories(basePackages = {"com.*"})
+@ComponentScan(basePackages = {"com.*"})
+
 
 public class ChatopBackendApplication {
 

@@ -13,6 +13,7 @@ import java.util.Date;
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
 
     @Column(name ="name")
