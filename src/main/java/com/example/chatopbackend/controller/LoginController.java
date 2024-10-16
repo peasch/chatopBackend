@@ -6,7 +6,14 @@ import com.example.chatopbackend.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -17,23 +24,14 @@ public class LoginController {
 
     private final UserService userService;
 
-    @GetMapping("/user")
-    public String getUser() {
 
-        return "hello and welcome user";
-    }
-
-    @GetMapping("/admin")
-    public String getAdmin() {
-
-        return "hello and welcome admin";
-    }
 
     @PostMapping("/login")
-    public ResponseEntity getToken(@RequestBody UserDto userDto) {
+    public ResponseEntity login(@RequestBody UserDto userDto) {
 
         if (userService.getUserByEmail(userDto.getEmail()) != null) {
             System.out.println(userDto);
+
             return new ResponseEntity(jwtService.generateToken(userDto), HttpStatus.OK);
         } else {
             System.out.println(userDto.getEmail() + " does not exist");
@@ -47,11 +45,21 @@ public class LoginController {
             userService.saveUser(userDto);
             UserDto saved = userService.getUserByEmail(userDto.getEmail());
             System.out.println(saved.toString());
-            return new ResponseEntity(jwtService.generateToken(saved), HttpStatus.OK);
+            Map<Object, Object> model = new HashMap<>();
+
+            model.put("message", "User registered successfully");
+            model.put("token",jwtService.generateToken(saved));
+            return ok(model);
+            //return new ResponseEntity(jwtService.generateToken(saved), HttpStatus.OK);
         } catch (Exception e) {
             System.out.println("email :" + userDto.getEmail() + " , already used");
             return new ResponseEntity("email already used", HttpStatus.FORBIDDEN);
         }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity getMe(@RequestBody UserDto userDto) {
+        return new ResponseEntity(jwtService.generateToken(userService.getUserByEmail(userDto.getEmail())), HttpStatus.OK);
     }
 
 }

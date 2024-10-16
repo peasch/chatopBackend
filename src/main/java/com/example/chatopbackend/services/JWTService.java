@@ -2,6 +2,7 @@ package com.example.chatopbackend.services;
 
 
 import com.example.chatopbackend.model.Dtos.UserDto;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
@@ -17,7 +18,7 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class JWTService {
 
-    private JwtEncoder jwtEncoder;
+    private final JwtEncoder jwtEncoder;
     public JWTService(JwtEncoder jwtEncoder) {
         this.jwtEncoder = jwtEncoder;
 
@@ -36,4 +37,12 @@ public class JWTService {
         return this.jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
     }
 
+    public String resolveToken(HttpServletRequest req) { // Méthode qui va extraire de la requête Http le token.
+        String bearerToken = req.getHeader("Authorization");
+        System.out.println(bearerToken);
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
 }
