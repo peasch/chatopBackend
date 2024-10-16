@@ -1,6 +1,7 @@
 package com.example.chatopbackend.services;
 
 
+import com.example.chatopbackend.model.Dtos.UserDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
@@ -22,13 +23,13 @@ public class JWTService {
 
     }
 
-    public String generateToken(Authentication authentication) {
+    public String generateToken(UserDto userDto) {
         Instant now = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
                 .expiresAt(now.plus(1,ChronoUnit.DAYS))
-                .subject(authentication.getName())
+                .subject(userDto.getEmail())
                 .build();
         JwtEncoderParameters jwtEncoderParameters =
                 JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(),claims);

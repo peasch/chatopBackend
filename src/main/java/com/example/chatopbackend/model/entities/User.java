@@ -1,6 +1,7 @@
 package com.example.chatopbackend.model.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Getter @Setter
+@Data
 @Table(name = "users", schema ="sys")
 public class User implements Serializable {
     @Id
