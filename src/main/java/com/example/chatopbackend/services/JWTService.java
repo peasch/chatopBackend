@@ -1,28 +1,31 @@
 package com.example.chatopbackend.services;
 
 
+import com.example.chatopbackend.config.CustomUserDetailsService;
 import com.example.chatopbackend.model.Dtos.UserDto;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
-import org.springframework.security.oauth2.jwt.JwsHeader;
-import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
-
+@RequiredArgsConstructor
 @Service
 public class JWTService {
 
     private final JwtEncoder jwtEncoder;
-    public JWTService(JwtEncoder jwtEncoder) {
-        this.jwtEncoder = jwtEncoder;
+    private final CustomUserDetailsService userDetailsService;
 
-    }
+    @Value("${security.jwt.secret-key}")
+    private String jwtKey;
 
     public String generateToken(UserDto userDto) {
         Instant now = Instant.now();
@@ -45,4 +48,6 @@ public class JWTService {
         }
         return null;
     }
+
+
 }
