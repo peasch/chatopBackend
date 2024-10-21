@@ -1,9 +1,8 @@
 package com.example.chatopbackend.model.mappers;
 
-import com.example.chatopbackend.model.Dtos.UserDto;
-import com.example.chatopbackend.model.entities.User;
+import com.example.chatopbackend.model.Dtos.MessageDto;
+import com.example.chatopbackend.model.entities.Message;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +10,10 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Component
 @Mapper(componentModel = SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface UserMapper {
+public interface MessageMapper {
 
+    MessageDto fromMessageToDto(Message message);
 
-    User fromDtoToUser(UserDto dto) ;
-
-    UserDto fromUserToDto(User dto) ;
+    Message fromDtoToMessage(MessageDto messageDto);
 
 }

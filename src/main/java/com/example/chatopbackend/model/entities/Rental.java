@@ -2,8 +2,6 @@ package com.example.chatopbackend.model.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -32,7 +30,7 @@ public class Rental {
     private String description;
 
     @Column(name = "owner_id", nullable = false)
-    private Integer ownerId;
+    private Integer owner_id;
 
     @Column(name = "created_at")
     private Instant createdAt;

@@ -24,6 +24,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -40,10 +41,12 @@ public class SpringSecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable).cors(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
-                            auth.requestMatchers("/admin").hasRole("ADMIN")
+                            auth.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                                    .requestMatchers("/admin").hasRole("ADMIN")
                                     .requestMatchers("/user").hasRole("USER")
                                     .requestMatchers("/api/auth/login").permitAll()
                                     .requestMatchers("/api/auth/register").permitAll()
+
                                     .anyRequest().authenticated();
                         }
                 ).oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())).build();
@@ -51,17 +54,6 @@ public class SpringSecurityConfig {
     }
 
 
-    @Bean
-    public UserDetailsService users() {
-        UserDetails user = User.builder().username("user@user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER").build();
-        UserDetails admin = User.builder().username("admin")
-                .password(passwordEncoder().encode("password"))
-                .roles("ADMIN", "USER").build();
-        return new InMemoryUserDetailsManager(user, admin);
-
-    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

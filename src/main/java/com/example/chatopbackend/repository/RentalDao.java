@@ -12,4 +12,6 @@ public interface RentalDao extends JpaRepository<Rental, Integer> {
 
    Rental findById(int id);
 
+
+
 }

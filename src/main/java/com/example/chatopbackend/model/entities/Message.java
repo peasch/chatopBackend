@@ -2,8 +2,6 @@ package com.example.chatopbackend.model.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.Instant;
 
@@ -17,18 +15,18 @@ public class Message {
     private Integer id;
 
     @Column(name = "rental_id")
-    private Integer rentalId;
+    private Integer rental_id;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Integer user_id;
 
     @Column(name = "message", length = 2000)
     private String message;
 
     @Column(name = "created_at")
-    private Instant createdAt;
+    private Instant created_at;
 
     @Column(name = "updated_at")
-    private Instant updatedAt;
+    private Instant updated_at;
 
 }

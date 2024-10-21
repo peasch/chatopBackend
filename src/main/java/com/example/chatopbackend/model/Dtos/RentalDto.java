@@ -1,9 +1,5 @@
 package com.example.chatopbackend.model.Dtos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,9 +29,9 @@ public class RentalDto implements Serializable {
 
     private String description;
 
-    private Integer ownerId;
+    private Integer owner_id;
 
-    private Instant createdAt;
+    private Instant created_at;
 
-    private Instant updatedAt;
+    private Instant updated_at;
 }

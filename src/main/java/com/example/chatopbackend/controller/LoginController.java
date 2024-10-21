@@ -6,6 +6,10 @@ import com.example.chatopbackend.model.Dtos.LogintDto;
 import com.example.chatopbackend.model.Dtos.UserDto;
 import com.example.chatopbackend.services.JWTService;
 import com.example.chatopbackend.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +31,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
+@Tag(name="Login Controller", description= "service to login or register")
 public class LoginController {
 
     public final JWTService jwtService;
@@ -38,7 +43,11 @@ public class LoginController {
     private final CustomUserDetailsService customUserDetailsService;
 
 
-
+    @Operation(summary = "Say hello to User", description = "Hello")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Hello"),
+            @ApiResponse(responseCode = "500", description = "error")
+    })
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LogintDto logintDto) {
         System.out.println(logintDto);
@@ -81,7 +90,6 @@ public class LoginController {
 
     @GetMapping("/me")
     public ResponseEntity getMe(@AuthenticationPrincipal Jwt principal) {
-
         return new ResponseEntity(userService.getUserByEmail(principal.getClaimAsString("sub")), HttpStatus.OK);
 
     }
