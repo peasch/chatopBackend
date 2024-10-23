@@ -65,16 +65,13 @@ public class LoginController {
         try {
             userService.saveUser(userDto);
             UserDto saved = userService.getUserByEmail(userDto.getEmail());
-            System.out.println(saved.toString());
             Map<Object, Object> model = new HashMap<>();
-
             model.put("message", "User registered successfully");
             model.put("token", jwtService.generateToken(saved));
             model.put("user", saved);
             return ok(model);
         } catch (Exception e) {
-            System.out.println("email :" + userDto.getEmail() + " , already used");
-            return new ResponseEntity("email already used", HttpStatus.FORBIDDEN);
+        return new ResponseEntity("register error", HttpStatus.FORBIDDEN);
         }
     }
 
