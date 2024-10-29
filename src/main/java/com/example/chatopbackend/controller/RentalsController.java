@@ -31,7 +31,7 @@ public class RentalsController {
     @ApiResponse(responseCode = "200", description = "You're logged in")
     @ApiResponse(responseCode = "500", description = "error")
     @GetMapping
-    public ResponseEntity getAllRentals() {
+    public ResponseEntity<Map<Object, Object>> getAllRentals() {
         Map<Object, Object> model = new HashMap<>();
         model.put("rentals", rentalService.findAll());
         return ok(model);
@@ -41,7 +41,7 @@ public class RentalsController {
     @ApiResponse(responseCode = "200", description = "You're logged in")
     @ApiResponse(responseCode = "500", description = "error")
     @PostMapping
-    public ResponseEntity createRental(@Valid @RequestParam("name") String name,
+    public ResponseEntity<Map<Object, Object>> createRental(@Valid @RequestParam("name") String name,
                                        @Valid @RequestParam("surface") int surface,
                                        @Valid @RequestParam("price") int price,
                                        @Valid @RequestParam("picture") MultipartFile picture,
@@ -64,7 +64,7 @@ public class RentalsController {
     @ApiResponse(responseCode = "200", description = "You're logged in")
     @ApiResponse(responseCode = "500", description = "error")
     @PutMapping("/{id}")
-    public ResponseEntity updateRental(@Valid @RequestParam("name") String name,
+    public ResponseEntity<Map<Object, Object>> updateRental(@Valid @RequestParam("name") String name,
                                        @Valid @RequestParam("surface") int surface,
                                        @Valid @RequestParam("price") int price,
                                        @Valid @RequestParam("description") String description,
@@ -86,6 +86,7 @@ public class RentalsController {
     @ApiResponse(responseCode = "500", description = "error")
     @GetMapping("/{id}")
     public ResponseEntity getRentalById(@PathVariable Integer id) {
+
         return new ResponseEntity<>(rentalService.findById(id), HttpStatus.OK);
     }
 
