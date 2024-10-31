@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -26,7 +25,7 @@ public class RentalServiceImpl implements RentalService {
     private final FileUploadService fileUploadService;
 
     @Override
-    public RentalDto save(String name, int surface, int price, MultipartFile picture, String description, Integer owner_id) throws IOException {
+    public RentalDto save(String name, int surface, int price, MultipartFile picture, String description, Integer ownerId) throws IOException {
         RentalDto rentalDto = new RentalDto();
         rentalDto.setName(name);
         rentalDto.setDescription(description);
@@ -34,7 +33,7 @@ public class RentalServiceImpl implements RentalService {
         rentalDto.setSurface(BigDecimal.valueOf(surface));
         String pictureString = fileUploadService.uploadFile(picture);
         rentalDto.setPicture(pictureString);
-        rentalDto.setOwner_id(owner_id);
+        rentalDto.setOwner_id(ownerId);
         rentalDto.setCreated_at(Instant.now());
 
         return rentalMapper.fromRentalToDto(rentalDao.save(rentalMapper.fromDtoToRental(rentalDto)));

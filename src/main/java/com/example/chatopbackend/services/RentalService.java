@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RentalService {
 
-    RentalDto save(String name, int surface, int price, MultipartFile picture,String description,Integer owner_id) throws IOException;
+    RentalDto save(String name, int surface, int price, MultipartFile picture,String description,Integer ownerId) throws IOException;
 
     RentalDto findById(Integer id);
 

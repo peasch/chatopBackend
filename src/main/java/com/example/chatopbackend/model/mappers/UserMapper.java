@@ -3,7 +3,6 @@ package com.example.chatopbackend.model.mappers;
 import com.example.chatopbackend.model.Dtos.UserDto;
 import com.example.chatopbackend.model.entities.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
 

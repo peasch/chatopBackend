@@ -1,7 +1,6 @@
 package com.example.chatopbackend.config;
 
 import com.example.chatopbackend.model.Dtos.UserDto;
-import com.example.chatopbackend.repository.UserDao;
 import com.example.chatopbackend.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
